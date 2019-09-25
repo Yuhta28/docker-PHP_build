@@ -7,3 +7,12 @@ FROM php:7.2-fpm
  RUN curl -sS https://getcomposer.org/installer | php && \
      mv composer.phar /usr/local/bin/composer
 
+ WORKDIR /app/src
+ COPY ./sample/composer.* ./
+ RUN mkdir -p ./database/seeds && mkdir -p ./database/factories && \ 
+     composer install
+
+ COPY ./sample .
+
+ CMD ["/app/src/entrypoint.sh"]
+
